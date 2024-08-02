@@ -41,7 +41,9 @@ const router = createBrowserRouter([
         path: "/book/:id",
         element: <SingleBook />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/api/book/${params.id}`),
+          fetch(
+            `https://book-inventory-kappa.vercel.app/api/book/${params.id}`
+          ),
       },
     ],
   },
@@ -51,7 +53,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/admin/dashboard",
-        element: <Privateroute><Dashboard /></Privateroute>,
+        element: (
+          <Privateroute>
+            <Dashboard />
+          </Privateroute>
+        ),
       },
       {
         path: "/admin/dashboard/upload",
@@ -65,22 +71,24 @@ const router = createBrowserRouter([
         path: "/admin/dashboard/edit-books/:id",
         element: <EditBooks />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/api/book/${params.id}`),
+          fetch(
+            `https://book-inventory-kappa.vercel.app/api/book/${params.id}`
+          ),
       },
     ],
   },
   {
     path: "sign-up",
-    element: <Signup/>,
+    element: <Signup />,
   },
   {
     path: "login",
-    element: <Login/>
+    element: <Login />,
   },
   {
     path: "logout",
-    element: <Logout/>
-  }
+    element: <Logout />,
+  },
 ]);
 
 export default router;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { Table } from "flowbite-react";
 import { Link } from "react-router-dom";
 
@@ -6,43 +6,43 @@ const ManageBooks = () => {
   const [allBooks, setAllBooks] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/all-books")
-      .then(res => res.json())
-      .then(data => {
-        console.log('Fetched data:', data); // Debugging line
+    fetch("https://book-inventory-kappa.vercel.app/api/all-books")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Fetched data:", data); // Debugging line
         setAllBooks(data);
       })
-      .catch(err => console.error('Error fetching books:', err));
+      .catch((err) => console.error("Error fetching books:", err));
   }, []);
 
   // Delete a book
   const handleDelete = (id) => {
-    console.log('Deleting book with ID:', id); // Debugging line
-    fetch(`http://localhost:5000/api/book/${id}`, {
-      method: 'DELETE',
+    console.log("Deleting book with ID:", id); // Debugging line
+    fetch(`https://book-inventory-kappa.vercel.app/api/book/${id}`, {
+      method: "DELETE",
     })
-    .then(response => {
-      if (response.ok) {
-        setAllBooks(allBooks.filter(book => book._id !== id));
-        alert("Book is deleted successfully!");
-      } else {
-        console.error('Failed to delete book');
-        alert("Failed to delete book. Please try again.");
-      }
-    })
-    .catch(err => {
-      console.error('Error deleting book:', err);
-      alert("Error deleting book. Please try again.");
-    });
+      .then((response) => {
+        if (response.ok) {
+          setAllBooks(allBooks.filter((book) => book._id !== id));
+          alert("Book is deleted successfully!");
+        } else {
+          console.error("Failed to delete book");
+          alert("Failed to delete book. Please try again.");
+        }
+      })
+      .catch((err) => {
+        console.error("Error deleting book:", err);
+        alert("Error deleting book. Please try again.");
+      });
   };
 
   return (
-    <div className='px-4 my-12'>
-      <h2 className='mb-8 text-3xl font-bold text-center text-purple-700'>
+    <div className="px-4 my-12">
+      <h2 className="mb-8 text-3xl font-bold text-center text-purple-700">
         Manage Your Books
       </h2>
-      <Table className='lg:w-[1000px] mx-auto '>
-        <Table.Head className='bg-gradient-to-r from-blue-500 to-indigo-600 text-white'>
+      <Table className="lg:w-[1000px] mx-auto ">
+        <Table.Head className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
           <Table.HeadCell>No.</Table.HeadCell>
           <Table.HeadCell>Book Name</Table.HeadCell>
           <Table.HeadCell>Author Name</Table.HeadCell>
@@ -52,9 +52,12 @@ const ManageBooks = () => {
             <span>Edit or Manage</span>
           </Table.HeadCell>
         </Table.Head>
-        <Table.Body className='divide-y'>
+        <Table.Body className="divide-y">
           {allBooks.map((book, index) => (
-            <Table.Row key={book._id} className="bg-white hover:bg-gray-50 transition-colors duration-300">
+            <Table.Row
+              key={book._id}
+              className="bg-white hover:bg-gray-50 transition-colors duration-300"
+            >
               <Table.Cell className="whitespace-nowrap font-medium text-gray-900">
                 {index + 1}
               </Table.Cell>
@@ -79,7 +82,7 @@ const ManageBooks = () => {
                 </Link>
                 <button
                   onClick={() => handleDelete(book._id)}
-                  className='bg-red-600 px-4 py-2 font-semibold text-white rounded-md hover:bg-red-700 transition-colors duration-300'
+                  className="bg-red-600 px-4 py-2 font-semibold text-white rounded-md hover:bg-red-700 transition-colors duration-300"
                 >
                   Delete
                 </button>
@@ -90,6 +93,6 @@ const ManageBooks = () => {
       </Table>
     </div>
   );
-}
+};
 
 export default ManageBooks;
